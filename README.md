@@ -1,118 +1,132 @@
-# 🌐 LinguaFlow — Universal Language Translator
+# 🌐 LinguaFlow — Universal Translator
 
-![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![API](https://img.shields.io/badge/MyMemory_API-00C4CC?style=for-the-badge)
-
-> A beautiful, real-time language translation web app built with pure HTML, CSS & JavaScript.
-
----
-
-## 🔗 Live Demo
-
-👉 **[https://duakamal739-ship-it.github.io/linguaflow](https://duakamal739-ship-it.github.io/linguaflow)**
-
----
-
-## 📸 Preview
-
-![LinguaFlow Screenshot](screenshot.png)
+A beautiful, production-ready language translation web app with a dark editorial aesthetic.
 
 ---
 
 ## ✨ Features
 
-- 🔄 **Real-time Translation** — Auto-translates as you type
-- 🌍 **50+ Languages** — Full language support with emoji flags
-- 🔍 **Auto Language Detection** — Detects source language automatically
-- 🔊 **Text-to-Speech** — Listen to both source and translated text
-- 📋 **Copy & Share** — One-click copy and native share sheet
-- 🔁 **Swap Languages** — Instantly swap source and target
-- 📜 **Translation History** — Last 50 translations saved locally
-- 📊 **Confidence Score** — Shows API match quality percentage
-- ⌨️ **Keyboard Shortcut** — Ctrl/Cmd + Enter to translate
-- 📱 **Fully Responsive** — Works on desktop, tablet, and mobile
-
----
-
-## 🛠️ Built With
-
-| Technology | Purpose |
-|---|---|
-| HTML5 | Structure |
-| CSS3 | Styling & Animations |
-| JavaScript (Vanilla) | Logic & Interactivity |
-| MyMemory API | Translation Engine |
-| Web Speech API | Text-to-Speech |
+- **Real-time Translation** — Auto-translates as you type (debounced)
+- **50+ Languages** — Full language database with flags
+- **Auto Language Detection** — Detects source language automatically
+- **Text-to-Speech** — Listen to both source and translated text
+- **Copy & Share** — One-click copy; native share sheet on mobile
+- **Swap Languages** — Instantly swap source/target languages
+- **Paste from Clipboard** — Paste button for quick input
+- **Translation History** — Last 50 translations saved locally
+- **Character Counter** — Live count with 5000-char limit warning
+- **Confidence Score** — Shows API match quality percentage
+- **Quick Language Chips** — One-click popular language selection
+- **Keyboard Shortcut** — `Ctrl/Cmd + Enter` to translate
+- **Fully Responsive** — Works on desktop, tablet, and mobile
 
 ---
 
 ## 🗂️ Project Structure
+
+```
 linguaflow/
-├── index.html          ← Main entry point
+├── index.html          ← Main HTML (entry point)
 ├── css/
-│   └── style.css       ← Complete design system
+│   └── style.css       ← Complete design system & styles
 ├── js/
-│   ├── languages.js    ← 70+ language database
-│   ├── translator.js   ← API + TTS + clipboard logic
-│   └── ui.js           ← UI controller & events
-└── README.md
+│   ├── languages.js    ← Language database (70+ languages)
+│   ├── translator.js   ← API integration + TTS + clipboard
+│   └── ui.js           ← UI controller, events, history
+└── README.md           ← This file
+```
 
 ---
 
 ## 🚀 Getting Started
 
-### Run Locally
+### Option 1 — Open directly
+Just open `index.html` in any modern browser. **No server needed.**
 
-1. Clone the repository
+### Option 2 — Local dev server
 ```bash
-git clone https://github.com/duakamal739-ship-it/linguaflow.git
-```
+# Python
+python -m http.server 3000
 
-2. Open the project folder
-```bash
-cd linguaflow
-```
+# Node (npx)
+npx serve .
 
-3. Open `index.html` in your browser — **no server or install needed!**
+# VS Code
+# Install "Live Server" extension, right-click index.html → "Open with Live Server"
+```
 
 ---
 
 ## 🌐 API Used
 
-**MyMemory Translation API** — [mymemory.translated.net](https://mymemory.translated.net)
+**MyMemory Translation API** — [https://mymemory.translated.net](https://mymemory.translated.net)
 
-- ✅ Free — No API key required
-- ✅ No sign-up needed
-- ✅ 50+ languages supported
-- ⚠️ 5,000 words/day limit on free tier
+- ✅ **Free** — No API key required
+- ✅ **No sign-up** — Works instantly
+- ✅ **50+ languages** supported
+- ⚠️ **Rate limit** — ~5,000 words/day per IP (free tier)
+
+For higher volume, register a free account at MyMemory for an API key:
+```js
+// In translator.js, add your email to increase quota:
+const params = new URLSearchParams({
+  q: text,
+  langpair: `${sourceLang}|${targetLang}`,
+  de: 'your@email.com',   // ← increases daily limit
+});
+```
+
+---
+
+## 🎨 Design System
+
+| Token | Value |
+|-------|-------|
+| Background | `#0a0a0f` |
+| Surface | `#111118` |
+| Gold accent | `#c9a84c` |
+| Teal accent | `#2dd4bf` |
+| Display font | Playfair Display (serif) |
+| Body font | DM Sans |
+| Mono font | DM Mono |
+
+---
+
+## 🔧 Customization
+
+### Add more languages
+Edit `js/languages.js` — add entries to the `LANGUAGES` array:
+```js
+{ code: 'xx', name: 'Language Name', flag: '🏳️' }
+```
+
+### Change default language pair
+In `js/ui.js`, edit `init()`:
+```js
+sourceLangSel.value = 'en';   // Default source
+targetLangSel.value = 'es';   // Default target
+```
+
+### Adjust debounce delay
+In `js/ui.js`:
+```js
+translateDebounce = setTimeout(doTranslate, 900); // milliseconds
+```
 
 ---
 
 ## 📱 Browser Support
 
-| Browser | Supported |
-|---|---|
-| Chrome | ✅ |
-| Firefox | ✅ |
-| Safari | ✅ |
-| Edge | ✅ |
+| Feature | Chrome | Firefox | Safari | Edge |
+|---------|--------|---------|--------|------|
+| Translation | ✅ | ✅ | ✅ | ✅ |
+| Text-to-Speech | ✅ | ✅ | ✅ | ✅ |
+| Clipboard API | ✅ | ✅ | ✅* | ✅ |
+| Web Share | ✅ | ✅ | ✅ | ✅ |
 
----
-
-## 👩‍💻 Author
-
-**Dua Kamal**
-- GitHub: [@duakamal739-ship-it](https://github.com/duakamal739-ship-it)
-- Email: duakamal739@gmail.com
+*Clipboard requires HTTPS or localhost in Safari.
 
 ---
 
 ## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
-⭐ **If you found this project helpful, please give it a star!** ⭐
+MIT — Free to use, modify, and distribute.
