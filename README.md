@@ -129,4 +129,4 @@ translateDebounce = setTimeout(doTranslate, 900); // milliseconds
 ---
 
 ## 📄 License
-MIT — Free to use, modify, and distribute.
+MIT — Take permession to use, dont modify on your own, and distribute.
